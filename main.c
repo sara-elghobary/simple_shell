@@ -5,7 +5,6 @@
 #include <sys/wait.h>
 
 #define BUFFER_SIZE 1024
-#define MAX_COMMAND_LENGTH 1024
 
 
 
@@ -26,9 +25,10 @@ return (0);
 
 void process_arguments(int argc, char *argv[])
 {
+int i;
 if (argc > 1)
 {
-for (int i = 1; i < argc; i++)
+for (i = 1; i < argc; i++)
 {
 process_file(argv[i], argv[0]);
 }
@@ -40,18 +40,17 @@ process_input_interactive();
 
 void process_file(char *filename, char *program_name)
 {
+char *command = NULL;
+size_t len = 0;
+ssize_t nread;
+int line_number = 0;
+
 int file_fd = open(filename, O_RDONLY);
 if (file_fd == -1)
 {
 perror("open");
 exit(EXIT_FAILURE);
 }
-
-char *command = NULL;
-size_t len = 0;
-ssize_t nread;
-int line_number = 0;
-
 while ((nread = getline(&command, &len, stdin)) != -1)
 {
 if (nread > 0 && command[nread - 1] == '\n')
@@ -71,7 +70,7 @@ char *command = NULL;
 size_t len = 0;
 ssize_t nread;
 int line_number = 0;
-
+int i;
 while (1)
 {
 display_prompt();
@@ -83,7 +82,7 @@ write(STDOUT_FILENO, "\n", 1);
 break;
 }
 
-for (int i = 0; i < nread; i++)
+for (i = 0; i < nread; i++)
 {
 if (command[i] == '\n')
 {
