@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define MAX_COMMAND_LENGTH 1024
+#define MAX_COMMAND_LENGTH 100
 
 extern char **environ;
 
@@ -28,11 +28,8 @@ void exe_external_command(char *args[], char *program_name, int line_number);
 int contains_slash(char *str);
 void handle_invalid_command(char *program_name, int line_number);
 void handle_com_not_found(char *program_name, int line_number, char *command);
-void process_arguments(int argc, char *argv[]);
-void process_file(char *filename, char *program_name);
-void process_input_interactive(void);
-void process_input_noninteractive(void);
-
+void handle_file_input(char *filename, char *program_name);
+void handle_interactive_mode(char *program_name);
 
 
 #endif
