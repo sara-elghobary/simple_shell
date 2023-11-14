@@ -28,6 +28,10 @@ void exe_external_command(char *args[], char *program_name, int line_number);
 int contains_slash(char *str);
 void handle_invalid_command(char *program_name, int line_number);
 void handle_com_not_found(char *program_name, int line_number, char *command);
+void process_arguments(int argc, char *argv[]);
+void process_file(char *filename, char *program_name);
+void process_input_interactive(void);
+void process_input_noninteractive(void);
 
 
 

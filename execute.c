@@ -61,33 +61,33 @@ return (0);
 
 void execute_command(char *command, int line_number, char *program_name)
 {
-    pid_t pid;
-    char *args[MAX_COMMAND_LENGTH];
-    tokenize_command(command, args);
+pid_t pid;
+char *args[MAX_COMMAND_LENGTH];
+tokenize_command(command, args);
 
-    if (args[0] == NULL)
-    {
-        handle_invalid_command(program_name, line_number);
-        return;
-    }
+if (args[0] == NULL)
+{
+handle_invalid_command(program_name, line_number);
+return;
+}
 
-    pid = fork();
+pid = fork();
 
-    if (pid == -1)
-    {
-        perror("fork");
-        _exit(EXIT_FAILURE);
-    }
-    else if (pid == 0)
-    {
-        exe_external_command(args, program_name, line_number);
-        _exit(EXIT_SUCCESS);
-    }
-    else
-    {
-        int status;
-        waitpid(pid, &status, 0);
-    }
+if (pid == -1)
+{
+perror("fork");
+_exit(EXIT_FAILURE);
+}
+else if (pid == 0)
+{
+exe_external_command(args, program_name, line_number);
+_exit(EXIT_SUCCESS);
+}
+else
+{
+int status;
+waitpid(pid, &status, 0);
+}
 }
 
 /**
